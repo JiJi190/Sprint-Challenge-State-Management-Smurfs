@@ -1,10 +1,12 @@
-import { FETCHING, SUCCESS, FAILURE } from "../actions";
+import { FETCHING, SUCCESS, FAILURE, ADD_SUCCESS, ADD_FAILURE } from "../actions";
 
 const initialState = {
     smurfs: [],
     fetching: false,
-    error: null
+    error: null,
+    addSmurf: false
 };
+console.log(initialState)
 
 export const smurfReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -22,6 +24,26 @@ export const smurfReducer = (state = initialState, action) => {
                         fetching: false,
                         error: "ERROR"
                     }
+
+        case ADD_REQUEST:
+            return {
+                ...initialState,
+                addSmurf: true,
+                error: null
+            }
+        case ADD_SUCCESS:
+            return {
+                ...initialState,
+                addSmurf: false,
+                smurfs: action.payload,
+                error: null
+            }
+        case ADD_FAILURE:
+            return {
+                ...initialState,
+                addSmurf: false,
+                error: action.payload
+            }
                     default:
                         return state;
     }
