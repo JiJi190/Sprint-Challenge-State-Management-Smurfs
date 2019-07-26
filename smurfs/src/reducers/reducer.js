@@ -1,25 +1,25 @@
 import { FETCHING, SUCCESS, FAILURE, ADD_REQUEST, ADD_SUCCESS, ADD_FAILURE } from "../actions";
 
 const initialState = {
-    smurfs: [],
+    smurfs: [   ],
     fetching: false,
     error: null,
     addSmurf: false
 };
-
+console.log(initialState, "Log initialState in Reducer")
 export const smurfReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCHING:
-            return {...initialState, fetching: true}
+            return {...state, fetching: true}
         case SUCCESS:
             return {
-                ...initialState,
-                smurfs: action.payload,
+                ...state,
+                smurfs: [...state.smurfs, action.payload],
                 fetching: false
             }
          case FAILURE:
              return {
-                ...initialState,
+                ...state,
                 fetching: false,
                 error: "ERROR"
             }
